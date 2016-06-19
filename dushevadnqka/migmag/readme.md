@@ -1,1 +1,1 @@
-## Mig Mag Laravel Framework 
+## Mig Mag Laravel migrations extender 
