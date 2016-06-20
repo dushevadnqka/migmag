@@ -1,0 +1,17 @@
+{
+    "name": "dushevadnqka/migmag",
+    "description": "Extends the Laravel migrations, adds ability to run migration for certain file is the main purpose.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dushevadnqka",
+            "email": "dushevadnqka@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Dushevadnqka\\Migmag\\": "src/Dushevadnqka/Migmag"
+        }
+    }
+}
