@@ -9,6 +9,8 @@ By adding:
 
 on your composer json file.
 
+
+
 ### Add this line to your config/app.php (in Providers array)
 ```php
 \Dushevadnqka\Migmag\Providers\MigmagServiceProvider::class
