@@ -4,7 +4,7 @@
 
 By adding: 
 ```sh
-   "dushevadnqka/migmag": "^1.0"
+   "dushevadnqka/migmag": "1.0.*"
 ```
 
 on your composer json file.
@@ -16,5 +16,8 @@ on your composer json file.
 ### and than:
 
 ```php
-    php artisan migrate:magic --path=some/path
+    php artisan migmag:migrate:magic
 ```
+and then as a answer type the path to your migration file without extension.
+And that's it... 
+### Enjoy!
