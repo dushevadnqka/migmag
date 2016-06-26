@@ -15,14 +15,14 @@ class MigrateCommand extends BaseCommand
      *
      * @var string
      */
-    protected $name = 'migrate:magic';
+    protected $name = 'migmag:migrate';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Run the database migrations as magic- single migration file exec';
+    protected $description = 'Run the database migrations as single- single migration file exec';
 
     /**
      * The migrator instance.
@@ -54,6 +54,8 @@ class MigrateCommand extends BaseCommand
         if (! $this->confirmToProceed()) {
             return;
         }
+        
+        $path = $this->ask('Please enter the full path of the migration file, without file extension, in the following format: path/migration-file');
 
         $this->prepareDatabase();
 
@@ -62,14 +64,8 @@ class MigrateCommand extends BaseCommand
         // a database for real, which is helpful for double checking migrations.
         $pretend = $this->input->getOption('pretend');
 
-        // Next, we will check to see if a path option has been defined. If it has
-        // we will use the path relative to the root of this installation folder
-        // so that migrations may be run for any path within the applications.
-        if (! is_null($path = $this->input->getOption('path'))) {
-            $path = $this->laravel->basePath().'/'.$path;
-        } else {
-            $path = $this->getMigrationPath();
-        }
+        // diff from original
+        $path = $this->laravel->basePath().'/'.$path;
 
         $this->migrator->run($path, [
             'pretend' => $pretend,

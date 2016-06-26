@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminate\Database\Console\Migrations;
+namespace Dushevadnqka\Migmag\Database\Console\Migrations;
 
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
@@ -15,14 +15,14 @@ class RefreshCommand extends Command
      *
      * @var string
      */
-    protected $name = 'migrate:refresh';
+    protected $name = 'migmag:migrate:refresh';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Reset and re-run all migrations';
+    protected $description = 'Reset and re-run single migration by path.';
 
     /**
      * Execute the console command.

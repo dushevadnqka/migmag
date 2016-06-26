@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminate\Database\Console\Migrations;
+namespace Dushevadnqka\Migmag\Database\Console\Migrations;
 
 use Illuminate\Database\Migrations\Migrator;
 use Symfony\Component\Console\Input\InputOption;
@@ -12,7 +12,7 @@ class StatusCommand extends BaseCommand
      *
      * @var string
      */
-    protected $name = 'migrate:status';
+    protected $name = 'migmag:migrate:status';
 
     /**
      * The console command description.

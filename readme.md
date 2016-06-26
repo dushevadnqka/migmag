@@ -2,9 +2,17 @@
 
 ### Install
 
+
+- ## Version 2.0 (Compatibility with version laravel 5.2)
 By adding: 
 ```sh
-   "dushevadnqka/migmag": "^1.0"
+   "dushevadnqka/migmag": "2.0.*"
+```
+
+- ## Version 1.0 (Compatibility with version laravel 5.1)
+By adding: 
+```sh
+   "dushevadnqka/migmag": "1.0.*"
 ```
 
 on your composer json file.
@@ -16,5 +24,8 @@ on your composer json file.
 ### and than:
 
 ```php
-    php artisan migrate:magic --path=some/path
+    php artisan migmag:migrate:magic
 ```
+and then as a answer type the path to your migration file without extension.
+And that's it... 
+### Enjoy!
