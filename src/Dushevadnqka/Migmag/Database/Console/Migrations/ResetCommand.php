@@ -1,10 +1,10 @@
 <?php
 
-namespace Illuminate\Database\Console\Migrations;
+namespace Dushevadnqka\Migmag\Database\Console\Migrations;
 
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
-use Illuminate\Database\Migrations\Migrator;
+use Dushevadnqka\Migmag\Database\Migrations\Migrator;
 use Symfony\Component\Console\Input\InputOption;
 
 class ResetCommand extends Command
@@ -16,14 +16,14 @@ class ResetCommand extends Command
      *
      * @var string
      */
-    protected $name = 'migrate:reset';
+    protected $name = 'migmag:migrate:reset';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Rollback all database migrations';
+    protected $description = 'Rollback single database migration';
 
     /**
      * The migrator instance.
