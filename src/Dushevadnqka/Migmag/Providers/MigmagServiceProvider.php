@@ -1,10 +1,14 @@
 <?php
+
 namespace Dushevadnqka\Migmag\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Dushevadnqka\Migmag\Database\Migrations\Migrator;
-use Dushevadnqka\Migmag\Database\Console\Migrations\MigrateCommand;
 use Illuminate\Database\Migrations\DatabaseMigrationRepository;
+use Dushevadnqka\Migmag\Database\Console\Migrations\MigrateCommand;
+use Dushevadnqka\Migmag\Database\Console\Migrations\ResetCommand;
+use Dushevadnqka\Migmag\Database\Console\Migrations\RefreshCommand;
+use Dushevadnqka\Migmag\Database\Console\Migrations\StatusCommand;
 
 class MigmagServiceProvider extends ServiceProvider
 {
@@ -26,6 +30,11 @@ class MigmagServiceProvider extends ServiceProvider
         $this->registerRepository();
         $this->registerMigrator();
         $this->registerCommands();
+    }
+
+    private function getMigrator()
+    {
+        return \App::make('Dushevadnqka\Migmag\Database\Migrations\Migrator');
     }
 
     /**
@@ -63,7 +72,7 @@ class MigmagServiceProvider extends ServiceProvider
      */
     protected function registerCommands()
     {
-        $commands = ['Migrate'];
+        $commands = ['Migrate', 'Reset', 'Refresh', 'Status'];
 
         // We'll simply spin through the list of commands that are migration related
         // and register each one of them with an application container. They will
@@ -76,7 +85,10 @@ class MigmagServiceProvider extends ServiceProvider
         // register them with the Artisan start event so that these are available
         // when the Artisan application actually starts up and is getting used.
         $this->commands(
-                'command.migrate.magic'
+                'command.migmag.migrate', 
+                'command.migmag.migrate.reset', 
+                'command.migmag.migrate.refresh', 
+                'command.migmag.migrate.status'
         );
     }
 
@@ -87,9 +99,47 @@ class MigmagServiceProvider extends ServiceProvider
      */
     protected function registerMigrateCommand()
     {
-        $this->app->singleton('command.migrate.magic', function ($app) {
-            $migrator = \App::make('Dushevadnqka\Migmag\Database\Migrations\Migrator');
+        $this->app->singleton('command.migmag.migrate', function ($app) {
+            $migrator = $this->getMigrator();
             return new MigrateCommand($migrator);
+        });
+    }
+
+    /**
+     * Register the "reset" migration command.
+     *
+     * @return void
+     */
+    protected function registerResetCommand()
+    {
+        $this->app->singleton('command.migmag.migrate.reset', function ($app) {
+            $migrator = $this->getMigrator();
+            return new ResetCommand($migrator);
+        });
+    }
+
+    /**
+     * Register the "refresh" migration command.
+     *
+     * @return void
+     */
+    protected function registerRefreshCommand()
+    {
+        $this->app->singleton('command.migmag.migrate.refresh', function () {
+            return new RefreshCommand;
+        });
+    }
+
+    /**
+     * Register the "status" migration command.
+     *
+     * @return void
+     */
+    protected function registerStatusCommand()
+    {
+        $this->app->singleton('command.migmag.migrate.status', function ($app) {
+            $migrator = $this->getMigrator();
+            return new StatusCommand($migrator);
         });
     }
 
@@ -101,9 +151,11 @@ class MigmagServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'migrator', 
-            'migration.repository', 
-            'command.migrate.magic',
+            'migration.repository',
+            'command.migmag.migrate',
+            'command.migmag.migrate.reset',
+            'command.migmag.migrate.refresh',
+            'command.migmag.migrate.status',
         ];
     }
 

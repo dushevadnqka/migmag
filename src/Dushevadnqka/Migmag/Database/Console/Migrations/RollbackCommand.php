@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminate\Database\Console\Migrations;
+namespace Dushevadnqka\Migmag\Database\Console\Migrations;
 
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;

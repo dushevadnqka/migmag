@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class MigrateCommand extends BaseCommand
 {
+
     use ConfirmableTrait;
 
        /**
@@ -15,14 +16,14 @@ class MigrateCommand extends BaseCommand
      *
      * @var string
      */
-    protected $name = 'migrate:magic';
+    protected $name = 'migmag:migrate';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Run the database migrations as magic- single migration file exec';
+    protected $description = 'Run the database migrations as single- single migration file exec';
 
     /**
      * The migrator instance.
@@ -51,9 +52,11 @@ class MigrateCommand extends BaseCommand
      */
     public function fire()
     {
-        if (! $this->confirmToProceed()) {
+        if (!$this->confirmToProceed()) {
             return;
         }
+
+        $path = $this->ask('Please enter the full path of the migration file, without file extension, in the following format: path/migration-file');
 
         $this->prepareDatabase();
 
@@ -62,14 +65,8 @@ class MigrateCommand extends BaseCommand
         // a database for real, which is helpful for double checking migrations.
         $pretend = $this->input->getOption('pretend');
 
-        // Next, we will check to see if a path option has been defined. If it has
-        // we will use the path relative to the root of this installation folder
-        // so that migrations may be run for any path within the applications.
-        if (! is_null($path = $this->input->getOption('path'))) {
-            $path = $this->laravel->basePath().'/'.$path;
-        } else {
-            $path = $this->getMigrationPath();
-        }
+        // diff from origin
+        $path = $this->laravel->basePath() . '/' . $path;
 
         $this->migrator->run($path, [
             'pretend' => $pretend,
@@ -100,7 +97,7 @@ class MigrateCommand extends BaseCommand
     {
         $this->migrator->setConnection($this->input->getOption('database'));
 
-        if (! $this->migrator->repositoryExists()) {
+        if (!$this->migrator->repositoryExists()) {
             $options = ['--database' => $this->input->getOption('database')];
 
             $this->call('migrate:install', $options);
@@ -116,16 +113,12 @@ class MigrateCommand extends BaseCommand
     {
         return [
             ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'],
-
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
-
-            ['path', null, InputOption::VALUE_OPTIONAL, 'The path of migrations files to be executed.'],
-
             ['pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run.'],
-
             ['seed', null, InputOption::VALUE_NONE, 'Indicates if the seed task should be re-run.'],
 
             ['step', null, InputOption::VALUE_NONE, 'Force the migrations to be run so they can be rolled back individually.'],
         ];
     }
+
 }
