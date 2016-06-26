@@ -25,7 +25,7 @@ on your composer json file.
 ### and than:
 
 ```php
-    php artisan migmag:migrate:magic
+    php artisan migmag:migrate
 ```
 and then as a answer type the path to your migration file without extension.
 And that's it... 
