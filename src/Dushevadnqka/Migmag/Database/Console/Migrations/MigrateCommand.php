@@ -55,6 +55,8 @@ class MigrateCommand extends BaseCommand
         if (!$this->confirmToProceed()) {
             return;
         }
+        
+        $path = $this->ask('Please enter the full path of the migration file, without file extension, in the following format: path/migration-file');
 
         $path = $this->ask('Please enter the full path of the migration file, without file extension, in the following format: path/migration-file');
 
@@ -65,8 +67,8 @@ class MigrateCommand extends BaseCommand
         // a database for real, which is helpful for double checking migrations.
         $pretend = $this->input->getOption('pretend');
 
-        // diff from origin
-        $path = $this->laravel->basePath() . '/' . $path;
+        // diff from original
+        $path = $this->laravel->basePath().'/'.$path;
 
         $this->migrator->run($path, [
             'pretend' => $pretend,
