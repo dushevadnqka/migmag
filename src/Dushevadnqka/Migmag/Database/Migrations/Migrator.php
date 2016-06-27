@@ -175,6 +175,11 @@ class Migrator extends \Illuminate\Database\Migrations\Migrator
         return $count;
     }
 
+    /**
+     * 
+     * @param type $migrationName
+     * @return 
+     */
     public function setmigrationName($migrationName)
     {
         return $this->migration = $migrationName;
@@ -188,9 +193,10 @@ class Migrator extends \Illuminate\Database\Migrations\Migrator
      */
     public function reset($pretend = false)
     {
-        if(!isset($this->migration)){
+        if (!isset($this->migration)) {
             $this->note('<info>No migration name.</info>');
         }
+        
         $this->notes = [];
 
         $migrationList = array_reverse($this->repository->getRan());
@@ -200,7 +206,7 @@ class Migrator extends \Illuminate\Database\Migrations\Migrator
         if ($count === 0) {
             $this->note('<info>Nothing to rollback.</info>');
         } elseif (!in_array($this->migration, $migrationList)) {
-            $this->note('<info>No such migration ran ever.</info>');
+            $this->note('<info>No such migration ran ever or is already reset.</info>');
         } else {
             $this->runDown((object) ['migration' => $this->migration], $pretend);
         }
