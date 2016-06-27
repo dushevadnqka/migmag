@@ -27,7 +27,14 @@ on your composer json file.
 ```php
     php artisan migmag:migrate
 ```
+
 and then as a answer type the path to your migration file without extension.
+
+### or
+
+```php
+    php artisan migmag:migrate --path=path/to/your/migration-file
+```
 
 ### To get a migration status by certain migration file:
 
@@ -36,5 +43,10 @@ and then as a answer type the path to your migration file without extension.
 ```
 and then as a answer type the path to your migration file without extension.
 
+### or
+
+```php
+    php artisan migmag:migrate:status --path=path/to/your/migration-file
+```
 
 ### Enjoy!
