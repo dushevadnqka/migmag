@@ -75,4 +75,5 @@ and then as a answer type the path to your migration file without extension.
     php artisan migmag:migrate:refresh --path=path/to/your/migration-file
 ```
 
+
 ### Enjoy!
