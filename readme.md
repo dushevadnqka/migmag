@@ -3,13 +3,13 @@
 ### Install
 
 
-- ## Version 2.0 (Compatibility with version laravel 5.2)
+- ### Version 2.0 (Compatibility with version laravel 5.2)
 By adding: 
 ```sh
    "dushevadnqka/migmag": "2.0.*"
 ```
 
-- ## Version 1.0 (Compatibility with version laravel 5.1)
+- ### Version 1.0 (Compatibility with version laravel 5.1)
 By adding: 
 ```sh
    "dushevadnqka/migmag": "1.0.*"
@@ -22,11 +22,19 @@ on your composer json file.
 ```php
 \Dushevadnqka\Migmag\Providers\MigmagServiceProvider::class
 ```
-### and than:
+### To exec migration from certain file:
 
 ```php
     php artisan migmag:migrate
 ```
 and then as a answer type the path to your migration file without extension.
-And that's it... 
+
+### To get a migration status by certain migration file:
+
+```php
+    php artisan migmag:migrate:status
+```
+and then as a answer type the path to your migration file without extension.
+
+
 ### Enjoy!
