@@ -49,4 +49,17 @@ and then as a answer type the path to your migration file without extension.
     php artisan migmag:migrate:status --path=path/to/your/migration-file
 ```
 
+### To make a migration reset by certain migration name:
+
+```php
+    php artisan migmag:migrate:reset
+```
+and then as a answer type the name of your migration file without extension.
+
+### or
+
+```php
+    php artisan migmag:migrate:reset --migration=migration-file-name
+```
+
 ### Enjoy!
