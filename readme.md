@@ -6,13 +6,13 @@
 - Version 2.0 (Compatibility with laravel 5.2)
 By adding: 
 ```sh
-   "dushevadnqka/migmag": "2.0.*"
+   "dushevadnqka/migmag": "2.*"
 ```
 
 - Version 1.0 (Compatibility with laravel 5.1)
 By adding: 
 ```sh
-   "dushevadnqka/migmag": "1.0.*"
+   "dushevadnqka/migmag": "1.*"
 ```
 
 on your composer json file.
