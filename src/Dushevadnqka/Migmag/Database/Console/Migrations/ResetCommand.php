@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class ResetCommand extends Command
 {
+
     use ConfirmableTrait;
 
     /**
@@ -52,19 +53,25 @@ class ResetCommand extends Command
      */
     public function fire()
     {
-        if (! $this->confirmToProceed()) {
+        if (!$this->confirmToProceed()) {
             return;
+        }
+
+        if (is_null($migrationName = $this->input->getOption('migration'))) {
+            $migrationName = $this->ask('Please enter the name of migration file, without file extension');
         }
 
         $this->migrator->setConnection($this->input->getOption('database'));
 
-        if (! $this->migrator->repositoryExists()) {
+        if (!$this->migrator->repositoryExists()) {
             $this->output->writeln('<comment>Migration table not found.</comment>');
 
             return;
         }
 
         $pretend = $this->input->getOption('pretend');
+
+        $this->migrator->setmigrationName($migrationName);
 
         $this->migrator->reset($pretend);
 
@@ -85,10 +92,10 @@ class ResetCommand extends Command
     {
         return [
             ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'],
-
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
-
+            ['migration', null, InputOption::VALUE_OPTIONAL, 'The name of migration to be executed.'],
             ['pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run.'],
         ];
     }
+
 }

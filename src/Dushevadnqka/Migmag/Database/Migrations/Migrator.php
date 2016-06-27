@@ -46,6 +46,13 @@ class Migrator extends \Illuminate\Database\Migrations\Migrator
     protected $notes = [];
 
     /**
+     * The name of migration.
+     *
+     * @var string
+     */
+    protected $migration;
+
+    /**
      * Create a new migrator instance.
      *
      * @param  \Illuminate\Database\Migrations\MigrationRepositoryInterface  $repository
@@ -168,6 +175,11 @@ class Migrator extends \Illuminate\Database\Migrations\Migrator
         return $count;
     }
 
+    public function setmigrationName($migrationName)
+    {
+        return $this->migration = $migrationName;
+    }
+
     /**
      * Rolls all of the currently applied migrations back.
      *
@@ -176,18 +188,21 @@ class Migrator extends \Illuminate\Database\Migrations\Migrator
      */
     public function reset($pretend = false)
     {
+        if(!isset($this->migration)){
+            $this->note('<info>No migration name.</info>');
+        }
         $this->notes = [];
 
-        $migrations = array_reverse($this->repository->getRan());
+        $migrationList = array_reverse($this->repository->getRan());
 
-        $count = count($migrations);
+        $count = count($migrationList);
 
         if ($count === 0) {
             $this->note('<info>Nothing to rollback.</info>');
+        } elseif (!in_array($this->migration, $migrationList)) {
+            $this->note('<info>No such migration ran ever.</info>');
         } else {
-            foreach ($migrations as $migration) {
-                $this->runDown((object) ['migration' => $migration], $pretend);
-            }
+            $this->runDown((object) ['migration' => $this->migration], $pretend);
         }
 
         return $count;
