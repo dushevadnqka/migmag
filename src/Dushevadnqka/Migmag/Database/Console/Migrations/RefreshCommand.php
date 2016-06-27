@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class RefreshCommand extends Command
 {
+
     use ConfirmableTrait;
 
     /**
@@ -31,7 +32,7 @@ class RefreshCommand extends Command
      */
     public function fire()
     {
-        if (! $this->confirmToProceed()) {
+        if (!$this->confirmToProceed()) {
             return;
         }
 
@@ -39,16 +40,22 @@ class RefreshCommand extends Command
 
         $force = $this->input->getOption('force');
 
-        $path = $this->input->getOption('path');
+        if (is_null($path = $this->input->getOption('path'))) {
+            $path = $this->ask('Please enter the full path of the migration file, without file extension, in the following format: path/migration-file');
+        }
 
-        $this->call('migrate:reset', [
-            '--database' => $database, '--force' => $force,
+        $arrayPath = explode('/', $path);
+
+        $migration = end($arrayPath);
+
+        $this->call('migmag:migrate:reset', [
+            '--database' => $database, '--force' => $force, '--migration' => $migration
         ]);
 
         // The refresh command is essentially just a brief aggregate of a few other of
         // the migration commands and just provides a convenient wrapper to execute
         // them in succession. We'll also see if we need to re-seed the database.
-        $this->call('migrate', [
+        $this->call('migmag:migrate', [
             '--database' => $database,
             '--force' => $force,
             '--path' => $path,
@@ -77,7 +84,7 @@ class RefreshCommand extends Command
      */
     protected function runSeeder($database)
     {
-        $class = $this->option('seeder') ?: 'DatabaseSeeder';
+        $class = $this->option('seeder') ? : 'DatabaseSeeder';
 
         $force = $this->input->getOption('force');
 
@@ -95,14 +102,15 @@ class RefreshCommand extends Command
     {
         return [
             ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'],
-
+            
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
-
+            
             ['path', null, InputOption::VALUE_OPTIONAL, 'The path of migrations files to be executed.'],
-
+            
             ['seed', null, InputOption::VALUE_NONE, 'Indicates if the seed task should be re-run.'],
-
+            
             ['seeder', null, InputOption::VALUE_OPTIONAL, 'The class name of the root seeder.'],
         ];
     }
+
 }
