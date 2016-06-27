@@ -3,13 +3,13 @@
 ### Install
 
 
-- ### Version 2.0 (Compatibility with version laravel 5.2)
+- Version 2.0 (Compatibility with laravel 5.2)
 By adding: 
 ```sh
    "dushevadnqka/migmag": "2.0.*"
 ```
 
-- ### Version 1.0 (Compatibility with version laravel 5.1)
+- Version 1.0 (Compatibility with laravel 5.1)
 By adding: 
 ```sh
    "dushevadnqka/migmag": "1.0.*"
