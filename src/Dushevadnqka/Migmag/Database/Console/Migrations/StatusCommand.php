@@ -53,7 +53,9 @@ class StatusCommand extends BaseCommand
             return $this->error('No migrations found.');
         }
 
-        $path = $this->ask('Please enter the full path of the migration file, without file extension, in the following format: path/migration-file');
+        if (is_null($path = $this->input->getOption('path'))) {
+            $path = $this->ask('Please enter the full path of the migration file, without file extension, in the following format: path/migration-file');
+        }
 
         $this->migrator->setConnection($this->input->getOption('database'));
 
@@ -94,6 +96,7 @@ class StatusCommand extends BaseCommand
     {
         return [
             ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'],
+            
             ['path', null, InputOption::VALUE_OPTIONAL, 'The path of migrations files to use.'],
         ];
     }
