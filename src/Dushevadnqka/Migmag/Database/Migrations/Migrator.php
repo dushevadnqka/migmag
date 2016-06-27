@@ -184,6 +184,16 @@ class Migrator extends \Illuminate\Database\Migrations\Migrator
     }
 
     /**
+     * 
+     * @param type $migrationName
+     * @return 
+     */
+    public function setmigrationName($migrationName)
+    {
+        return $this->migration = $migrationName;
+    }
+
+    /**
      * Rolls all of the currently applied migrations back.
      *
      * @param  bool  $pretend
@@ -191,18 +201,22 @@ class Migrator extends \Illuminate\Database\Migrations\Migrator
      */
     public function reset($pretend = false)
     {
+        if (!isset($this->migration)) {
+            $this->note('<info>No migration name.</info>');
+        }
+
         $this->notes = [];
 
-        $migrations = array_reverse($this->repository->getRan());
+        $migrationList = array_reverse($this->repository->getRan());
 
-        $count = count($migrations);
+        $count = count($migrationList);
 
         if ($count === 0) {
             $this->note('<info>Nothing to rollback.</info>');
+        } elseif (!in_array($this->migration, $migrationList)) {
+            $this->note('<info>No such migration ran ever or is already reset.</info>');
         } else {
-            foreach ($migrations as $migration) {
-                $this->runDown((object) ['migration' => $migration], $pretend);
-            }
+            $this->runDown((object) ['migration' => $this->migration], $pretend);
         }
 
         return $count;
