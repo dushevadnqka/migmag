@@ -60,8 +60,6 @@ class MigrateCommand extends BaseCommand
             $path = $this->ask('Please enter the full path of the migration file, without file extension, in the following format: path/migration-file');
         }
 
-        $path = $this->ask('Please enter the full path of the migration file, without file extension, in the following format: path/migration-file');
-
         $this->prepareDatabase();
 
         // The pretend option can be used for "simulating" the migration and grabbing
