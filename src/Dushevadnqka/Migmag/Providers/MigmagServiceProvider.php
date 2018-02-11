@@ -85,10 +85,10 @@ class MigmagServiceProvider extends ServiceProvider
         // register them with the Artisan start event so that these are available
         // when the Artisan application actually starts up and is getting used.
         $this->commands(
-                'command.migmag.migrate', 
-                'command.migmag.migrate.reset', 
-                'command.migmag.migrate.refresh', 
-                'command.migmag.migrate.status'
+            'command.migmag.migrate',
+            'command.migmag.migrate.reset',
+            'command.migmag.migrate.refresh',
+            'command.migmag.migrate.status'
         );
     }
 
@@ -158,5 +158,4 @@ class MigmagServiceProvider extends ServiceProvider
             'command.migmag.migrate.status',
         ];
     }
-
 }

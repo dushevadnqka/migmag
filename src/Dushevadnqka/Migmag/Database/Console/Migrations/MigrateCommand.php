@@ -127,5 +127,4 @@ class MigrateCommand extends BaseCommand
             ['step', null, InputOption::VALUE_NONE, 'Force the migrations to be run so they can be rolled back individually.'],
         ];
     }
-
 }

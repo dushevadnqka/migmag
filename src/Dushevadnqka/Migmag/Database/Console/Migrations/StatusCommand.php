@@ -100,5 +100,4 @@ class StatusCommand extends BaseCommand
             ['path', null, InputOption::VALUE_OPTIONAL, 'The path of migrations files to use.'],
         ];
     }
-
 }

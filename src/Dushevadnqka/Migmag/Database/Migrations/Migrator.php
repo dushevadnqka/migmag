@@ -184,9 +184,9 @@ class Migrator extends \Illuminate\Database\Migrations\Migrator
     }
 
     /**
-     * 
+     *
      * @param type $migrationName
-     * @return 
+     * @return
      */
     public function setmigrationName($migrationName)
     {
@@ -340,7 +340,7 @@ class Migrator extends \Illuminate\Database\Migrations\Migrator
 
         return $db->pretend(function () use ($migration, $method) {
                     $migration->$method();
-                });
+        });
     }
 
     /**
@@ -436,5 +436,4 @@ class Migrator extends \Illuminate\Database\Migrations\Migrator
     {
         return $this->files;
     }
-
 }

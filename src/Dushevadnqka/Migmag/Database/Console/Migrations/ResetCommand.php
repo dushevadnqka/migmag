@@ -97,5 +97,4 @@ class ResetCommand extends Command
             ['pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run.'],
         ];
     }
-
 }
